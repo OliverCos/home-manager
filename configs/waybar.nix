@@ -168,7 +168,7 @@ in
             "1" = "";
             "2" = "";
             "3" = "";
-            "4" = "";
+            "4" = "";
             "5" = "";
           };
         };
@@ -325,7 +325,7 @@ in
     style = ''
       * {
           border: none;
-          font-family: "FiraCode Nerd Font", "Symbols Nerd Font Mono";
+          font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono";
           font-size: 13px;
           font-weight: bold;
           min-height: 0;

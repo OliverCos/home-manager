@@ -160,7 +160,7 @@
         # Workspace Rules
         "match:class (zen), workspace 2"
         "match:class (code), workspace 3"
-        "match:class (signal), workspace 4"
+        "match:class (steam), workspace 4"
         "match:class (spotify), workspace 5"
       ];
 

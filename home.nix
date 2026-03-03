@@ -65,17 +65,28 @@
     thunar
     python3
     ddcutil
+    obsidian
   ];
   
   services.playerctld.enable = true;
-
+  
   services.blueman-applet.enable = true;
 
-  programs.git = {
-    enable = true;
-    settings.user = {
-      name = "splogdes";
-      email = "95136830+splogdes@users.noreply.github.com";
+  programs = {
+    git = {
+      enable = true;
+      settings.user = {
+        name = "splogdes";
+        email = "95136830+splogdes@users.noreply.github.com";
+      };
+    };
+
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
     };
   };
 
@@ -126,11 +137,6 @@
       iconTheme = {
         name = "Papirus";
         package = pkgs.papirus-icon-theme;
-      };
-      
-      font = {
-        name = "FiraCode Nerd Font Mono";
-        size = 11;
       };
       
       gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
