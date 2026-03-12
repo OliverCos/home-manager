@@ -19,14 +19,6 @@
   home.homeDirectory = "/home/splogdes";
   home.stateVersion = "25.11";
 
-  home.sessionVariables = {
-    ANTHROPIC_BASE_URL = "http://localhost:11434";
-    ANTHROPIC_AUTH_TOKEN = "ollama";
-    ANTHROPIC_API_KEY = "";
-    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
-    CLAUDE_CODE_DISABLE_BACKGROUND_TASKS = "1";
-  };
-
   home.packages = with pkgs; [
     waybar
     wofi
@@ -66,6 +58,7 @@
     python3
     ddcutil
     obsidian
+    claude-code
   ];
   
   services.playerctld.enable = true;
