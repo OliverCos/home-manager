@@ -449,7 +449,7 @@ in
 
       /* --- OTHER MODULES (Unchanged) --- */
       #custom-cava {
-          font-family: "FiraCode Nerd Font"; 
+          font-family: "FiraCode Nerd Font", "Noto Color Emoji"; 
           padding-right: 16px; 
       }
 
