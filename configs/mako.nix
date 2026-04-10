@@ -3,55 +3,48 @@
 {
   services.mako = {
     enable = true;
-    
-    # NEW STRUCTURE: Everything goes inside 'settings'
+
     settings = {
       # --- VISUALS ---
-      font = "FiraCode Nerd Font 12";
-      width = 350;
-      height = 150;
-      
-      # Colors (Hyphens instead of CamelCase)
-      "background-color" = "#0b0e14F0"; # Deep Void (94% Opacity)
-      "text-color" = "#b3f2ff";         # Soft Cyan
-      
-      # Borders
-      "border-color" = "#00ffff";       # Cyan Glow
-      "border-size" = 2;
-      "border-radius" = 10;
-      
-      # Layout
-      padding = "15";
-      margin = "10";
-      
-      # Icons
+      font = "JetBrainsMono Nerd Font 11";
+      width = 380;
+      height = 140;
+
+      "background-color" = "#0f1218e6";
+      "text-color" = "#c8d1dc";
+
+      "border-color" = "#d49759";
+      "border-size" = 1;
+      "border-radius" = 14;
+
+      padding = "18";
+      margin = "14";
+
       icons = true;
-      "icon-path" = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";      
-      
+      "icon-path" = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
+
       # --- BEHAVIOR ---
-      "default-timeout" = 5000; # 5 seconds
+      "default-timeout" = 5000;
       "ignore-timeout" = false;
-      
+
       layer = "overlay";
     };
 
-    # Extra config stays outside settings (or can be appended differently), 
-    # but 'extraConfig' is still valid in most versions.
     extraConfig = ''
       [urgency=low]
-      border-color=#3a4655
-      text-color=#c0c5ce
-      
+      border-color=#3a4250
+      text-color=#7e8694
+
       [urgency=normal]
-      border-color=#00ffff
-      
+      border-color=#d49759
+
       [urgency=critical]
-      border-color=#ff5555
-      text-color=#ffffff
+      border-color=#b85842
+      text-color=#dbe4ec
       default-timeout=0
-      
+
       [category=mpd]
-      border-color=#ffaa00
+      border-color=#6b8db0
       default-timeout=2000
       group-by=category
     '';

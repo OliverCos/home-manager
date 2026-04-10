@@ -3,84 +3,79 @@
   programs.kitty = {
     enable = true;
     settings = {
-      # --- FORERUNNER TYPOGRAPHY ---
-      font_family = "FiraCode Nerd Font Mono";
-      font_size = "12.0";
-      # "Never" disable ligatures implies the advanced nature of the Domain
-      disable_ligatures = "never"; 
-      
-      # --- THE VOID (BACKGROUND) ---
-      # Slightly metallic deep grey/black, not pitch black
-      background = "#080a0c"; 
-      background_opacity = "0.80"; # Slightly more solid, like a physical terminal
+      # --- TYPOGRAPHY ---
+      font_family = "JetBrainsMono Nerd Font";
+      font_size = "12.5";
+      disable_ligatures = "never";
 
-      # --- LIVING METAL (FOREGROUND) ---
-      # Forerunner structures are silver/grey. Text should reflect that.
-      foreground = "#c0c5ce"; 
-      
-      # --- HARD LIGHT BORDER ---
-      # This puts a thin glowing line around your terminal window
-      window_border_width = "1pt";
-      active_border_color = "#00ffff"; # Hard Light Cyan
-      inactive_border_color = "#3a4655"; # Dormant Metal
-      window_padding_width = 12;
+      # --- BACKGROUND ---
+      background = "#08090d";
+      background_opacity = "0.85";
 
-      # --- CURSOR (FOCUS BEAM) ---
-      cursor = "#00ffff";
-      cursor_text_color = "#080a0c";
-      cursor_shape = "beam"; # Looks like a scanning laser
+      # --- FOREGROUND ---
+      foreground = "#c8d1dc";
+
+      # --- WINDOW ---
+      window_border_width = "0pt";
+      window_padding_width = 16;
+      hide_window_decorations = "yes";
+
+      # --- CURSOR ---
+      cursor = "#d49759";
+      cursor_text_color = "#08090d";
+      cursor_shape = "beam";
       cursor_beam_thickness = "1.5";
-      cursor_blink_interval = "0"; # Forerunners do not blink (static beam)
+      cursor_blink_interval = "0";
 
-      # --- TAB BAR (DATA SHARDS) ---
-      tab_bar_edge = "top"; # HUDs usually have headers
+      # --- TAB BAR ---
+      tab_bar_edge = "top";
       tab_bar_style = "powerline";
-      tab_powerline_style = "angled"; # Sharp angles match Forerunner architecture
-      active_tab_foreground = "#080a0c";
-      active_tab_background = "#00ffff"; 
+      tab_powerline_style = "slanted";
+      active_tab_foreground = "#08090d";
+      active_tab_background = "#d49759";
       active_tab_font_style = "bold";
-      inactive_tab_foreground = "#00ffff";
-      inactive_tab_background = "#0f1419";
+      inactive_tab_foreground = "#7e8694";
+      inactive_tab_background = "#0f1218";
 
-      # --- COLOR PALETTE: "THE MANTLE" ---
-      
-      # Black: The Void / Dormant Metal
+      # --- ARTEMIS PALETTE ---
+
+      # Black: void / mute
       color0  = "#15191f";
-      color8  = "#3a4655";
+      color8  = "#3a4250";
 
-      # Red: Rampancy / Logic Plague
-      color1  = "#ff5555";
-      color9  = "#ff3333";
+      # Red: rust alert
+      color1  = "#b85842";
+      color9  = "#d27260";
 
-      # Green: Installation Monitor / Reclaimer Status
-      color2  = "#50fa7b";
-      color10 = "#00ff99";
+      # Green: muted moss
+      color2  = "#7da784";
+      color10 = "#9bc7a3";
 
-      # Yellow/Orange: Promethean / Construct
-      color3  = "#ffb86c";
-      color11 = "#ffaa00"; # Glowing Orange
+      # Yellow: amber
+      color3  = "#d49759";
+      color11 = "#f0b070";
 
-      # Blue: Sentinels / The Domain
-      color4  = "#8be9fd";
-      color12 = "#00bfff"; 
+      # Blue: ocean / atmosphere
+      color4  = "#6b8db0";
+      color12 = "#8fb4d4";
 
-      # Magenta: Slipspace Rupture
-      color5  = "#bd93f9";
-      color13 = "#ff79c6";
+      # Magenta: dusty violet
+      color5  = "#8a7aa0";
+      color13 = "#a89cc4";
 
-      # Cyan: Hard Light (Primary UI)
-      color6  = "#00ffff";
-      color14 = "#a6f5ff"; # Overcharged Hard Light
+      # Cyan: glow blue (not neon)
+      color6  = "#8fb4d4";
+      color14 = "#b3d4ec";
 
-      # White: Pure Data / Living Metal
-      color7  = "#e6e6e6";
-      color15 = "#ffffff";
+      # White: text / cloud
+      color7  = "#c8d1dc";
+      color15 = "#dbe4ec";
 
       # --- UX EXTRAS ---
-      selection_foreground = "#000000";
-      selection_background = "#00ffff"; # High contrast "Select"
-      url_color = "#00ffff";
-      url_style = "double"; # Double underline for links
+      selection_foreground = "#08090d";
+      selection_background = "#d49759";
+      url_color = "#8fb4d4";
+      url_style = "single";
     };
   };
 }

@@ -2,98 +2,84 @@
 {
   programs.hyprlock = {
     enable = true;
-    
+
     settings = {
-      # --- GENERAL SETTINGS ---
+      # --- GENERAL ---
       general = {
         no_fade_in = false;
-        grace = 0;              # No "grace period" - locks immediately
+        grace = 0;
         disable_loading_bar = true;
         hide_cursor = true;
       };
 
-      # --- BACKGROUND (Frosted Glass) ---
+      # --- BACKGROUND (frosted screenshot) ---
       background = [
         {
-          path = "screenshot";  # Takes a screenshot of your desktop
-          blur_passes = 3;      # 3 passes = Heavy Blur
-          blur_size = 5;
+          path = "screenshot";
+          blur_passes = 4;
+          blur_size = 7;
           noise = 0.0117;
-          contrast = 0.8916;
-          brightness = 0.8172;
-          vibrancy = 0.1696;
-          vibrancy_darkness = 0.0;
+          contrast = 0.85;
+          brightness = 0.65;
+          vibrancy = 0.15;
+          vibrancy_darkness = 0.1;
         }
       ];
 
-      # --- INPUT FIELD (The "Command Line") ---
+      # --- INPUT FIELD ---
       input-field = [
         {
-          size = "250, 50";
-          position = "0, -80";
+          size = "320, 56";
+          position = "0, -130";
           monitor = "";
-          
-          dots_size = 0.25;      # Small dots for "hidden" chars
-          dots_spacing = 0.15; 
+
+          dots_size = 0.25;
+          dots_spacing = 0.2;
           dots_center = true;
-          dots_rounding = -1;    # Makes dots perfectly round
-          
-          # Visuals
-          outer_color = "rgba(0, 255, 255, 0.5)"; # Cyan Outline (Hard Light)
-          inner_color = "rgba(11, 14, 20, 0.85)"; # Deep Void Background
-          font_color = "rgb(179, 242, 255)";      # Forerunner Light Text
-          
+          dots_rounding = -1;
+
+          outer_color = "rgba(212, 151, 89, 0.55)";
+          inner_color = "rgba(8, 9, 13, 0.7)";
+          font_color = "rgb(219, 228, 236)";
+
           fade_on_empty = false;
-          placeholder_text = "<i>Enter Clearance Code...</i>"; # Thematic prompt
+          placeholder_text = "<i>access code</i>";
           hide_input = false;
-          
-          rounding = 20;         # Matches your Pill shape
-          
-          # Shadow/Glow
-          check_color = "rgb(255, 170, 0)";       # Orange when checking (Promethean)
-          fail_color = "rgb(255, 85, 85)";        # Red on failure (Rampancy)
-          fail_text = "<i>ACCESS DENIED</i>";
+
+          rounding = 28;
+
+          check_color = "rgb(143, 180, 212)";
+          fail_color = "rgb(184, 88, 66)";
+          fail_text = "<i>denied</i>";
         }
       ];
 
-      # --- LABELS (The HUD Text) ---
+      # --- LABELS ---
       label = [
-        # 1. TIME (Big Digital Clock)
+        # Time
         {
           text = "$TIME";
-          color = "rgba(179, 242, 255, 1.0)";
-          font_size = 90;
-          font_family = "FiraCode Nerd Font Bold";
-          
-          position = "0, 100";
+          color = "rgba(219, 228, 236, 1.0)";
+          font_size = 110;
+          font_family = "JetBrainsMono Nerd Font";
+
+          position = "0, 110";
           halign = "center";
           valign = "center";
-          
-          shadow_passes = 2;     # Glow Effect
-          shadow_size = 5;
-          shadow_color = "rgba(0, 255, 255, 0.5)";
-        }
-        
-        # 2. DATE (Subtext)
-        {
-          text = "cmd[update:1000] echo \"<b>$(date +'%A, %B %d')</b>\"";
-          color = "rgba(200, 200, 200, 1.0)";
-          font_size = 14;
-          font_family = "FiraCode Nerd Font";
-          
-          position = "0, 30";
-          halign = "center";
-          valign = "center";
+
+          shadow_passes = 3;
+          shadow_size = 8;
+          shadow_color = "rgba(212, 151, 89, 0.35)";
         }
 
-        # 3. STATUS INDICATOR (The "Lock" Icon)
+        # Date
         {
-          text = "  SYSTEM LOCKED";
-          color = "rgba(0, 255, 255, 0.6)";
-          font_size = 12;
-          font_family = "FiraCode Nerd Font Mono";
-          
-          position = "0, -140";
+          text = "cmd[update:1000] echo \"$(date +'%A · %d %B' | tr '[:upper:]' '[:lower:]')\"";
+          color = "rgba(126, 134, 148, 1.0)";
+          font_size = 14;
+          font_family = "JetBrainsMono Nerd Font";
+
+          position = "0, 30";
           halign = "center";
           valign = "center";
         }

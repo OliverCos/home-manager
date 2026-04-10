@@ -5,13 +5,17 @@
     settings = {
       logo = {
         source = "nixos_small";
-        padding = { top = 1; };
+        color = {
+          "1" = "90";
+          "2" = "90";
+        };
+        padding = { top = 1; right = 2; };
       };
       display = {
-        separator = "   ";
+        separator = "   ";
         color = {
-          keys = "36";
-          title = "36";
+          keys = "33";
+          title = "37";
         };
       };
       modules = [
@@ -19,38 +23,53 @@
         "separator"
         {
           type = "os";
-          key = "SYSTEM  ";
-          keyColor = "36";
+          key = "os    ";
+          keyColor = "33";
         }
         {
           type = "host";
-          key = "MACHINE ";
-          keyColor = "36";
+          key = "host  ";
+          keyColor = "33";
         }
         {
           type = "kernel";
-          key = "KERNEL  ";
-          keyColor = "36";
+          key = "kernel";
+          keyColor = "33";
         }
         {
           type = "uptime";
-          key = "RUNTIME ";
-          keyColor = "36";
+          key = "up    ";
+          keyColor = "33";
         }
         {
           type = "packages";
-          key = "MODULES ";
-          keyColor = "36";
+          key = "pkgs  ";
+          keyColor = "33";
+        }
+        {
+          type = "cpu";
+          key = "cpu   ";
+          keyColor = "33";
+        }
+        {
+          type = "gpu";
+          key = "gpu   ";
+          keyColor = "33";
         }
         {
           type = "memory";
-          key = "MEMORY  ";
-          keyColor = "36";
+          key = "mem   ";
+          keyColor = "33";
+        }
+        {
+          type = "display";
+          key = "disp  ";
+          keyColor = "33";
         }
         "break"
         {
           type = "colors";
-          symbol = "circle";
+          symbol = "square";
         }
       ];
     };

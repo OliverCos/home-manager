@@ -2,10 +2,10 @@
 let
   powerStyle = pkgs.writeText "power-style.css" ''
     window {
-      background-color: rgba(11, 14, 20, 0.9);
-      border: 2px solid #f38ba8; /* Red/Pink border */
-      border-radius: 12px;
-      font-family: "FiraCode Nerd Font", monospace;
+      background-color: rgba(8, 9, 13, 0.85);
+      border: 1px solid rgba(184, 88, 66, 0.65);
+      border-radius: 14px;
+      font-family: "JetBrainsMono Nerd Font", monospace;
     }
 
     #input {
@@ -19,77 +19,71 @@ let
     }
 
     #inner-box {
-      margin: 10px; 
+      margin: 10px;
       background-color: transparent;
     }
 
     #entry {
       padding: 10px;
       margin: 2px 0px;
-      color: #b3f2ff;
+      color: #c8d1dc;
     }
 
     #entry:selected {
-      background: linear-gradient(90deg, rgba(243, 139, 168, 0.2) 0%, rgba(243, 139, 168, 0.0) 100%);
-      border-left: 2px solid #f38ba8;
+      background: linear-gradient(90deg, rgba(184, 88, 66, 0.22) 0%, rgba(184, 88, 66, 0.0) 100%);
+      border-left: 2px solid #b85842;
       border-radius: 4px;
-      font-weight: bold;
-      color: #ffffff;
+      color: #dbe4ec;
     }
   '';
 
   tempStyle = pkgs.writeText "temp-style.css" ''
     window {
-      background-color: rgba(11, 14, 20, 0.95);
-      border: 2px solid #00ffff; /* Cyan Border */
-      border-radius: 12px;
-      font-family: "FiraCode Nerd Font", monospace;
+      background-color: rgba(8, 9, 13, 0.85);
+      border: 1px solid rgba(212, 151, 89, 0.55);
+      border-radius: 14px;
+      font-family: "JetBrainsMono Nerd Font", monospace;
     }
     #input { opacity: 0; }
     #inner-box { margin: 10px; background-color: transparent; }
-    
-    #entry { 
-      padding: 12px; 
-      margin: 2px 0px; 
-      color: #c0c5ce; 
+
+    #entry {
+      padding: 12px;
+      margin: 2px 0px;
+      color: #c8d1dc;
     }
 
     #entry:selected {
-      /* Cyan Gradient for selection */
-      background: linear-gradient(90deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 255, 255, 0.0) 100%);
-      border-left: 3px solid #00ffff;
+      background: linear-gradient(90deg, rgba(212, 151, 89, 0.22) 0%, rgba(212, 151, 89, 0.0) 100%);
+      border-left: 2px solid #d49759;
       border-radius: 0px 4px 4px 0px;
-      font-weight: bold;
-      color: #ffffff;
+      color: #dbe4ec;
     }
   '';
 
   powerMenu = pkgs.writeShellScriptBin "power-menu" ''
-    options="󰐥 Power Off\n󰜉 Reboot\n󰤄 Suspend\n󰗼 Logout"
+    options="󰐥 power off\n󰜉 reboot\n󰤄 suspend\n󰗼 logout"
 
     selected=$(echo -e "$options" | ${pkgs.wofi}/bin/wofi --show dmenu \
       --style ${powerStyle} \
-      --width 160 --height 180 \
-      --location 3 --xoffset -10 --yoffset 10 \
+      --width 170 --height 190 \
+      --location 3 --xoffset -14 --yoffset 10 \
       --columns 1 \
-      --prompt "") # Empty prompt helps keep it clean
+      --prompt "")
 
     case $selected in
-        "󰐥 Power Off") systemctl poweroff ;;
-        "󰜉 Reboot") systemctl reboot ;;
-        "󰤄 Suspend") systemctl suspend ;;
-        "󰗼 Logout") ${pkgs.hyprland}/bin/hyprctl dispatch exit ;;
+        "󰐥 power off") systemctl poweroff ;;
+        "󰜉 reboot") systemctl reboot ;;
+        "󰤄 suspend") systemctl suspend ;;
+        "󰗼 logout") ${pkgs.hyprland}/bin/hyprctl dispatch exit ;;
     esac
   '';
 
   gpuScript = pkgs.writeShellScriptBin "gpu-info" ''
-    # Query NVIDIA-SMI for usage, temp, memory, name, power, fan, and clocks
     info=$(nvidia-smi --query-gpu=utilization.gpu,temperature.gpu,memory.used,memory.total,name,power.draw,power.limit,fan.speed,clocks.current.graphics,clocks.current.memory --format=csv,noheader,nounits)
-    
-    # Parse comma-separated values
+
     IFS=',' read -r usage temp used total name power power_limit fan core_clock mem_clock <<< "$info"
 
-    # Trim whitespace from all variables
     usage=$(echo "$usage" | xargs)
     temp=$(echo "$temp" | xargs)
     used=$(echo "$used" | xargs)
@@ -101,32 +95,25 @@ let
     core_clock=$(echo "$core_clock" | xargs)
     mem_clock=$(echo "$mem_clock" | xargs)
 
-    # Format Tooltip
-    # Line 1: GPU Name
-    # Line 2: Usage % @ Core Clock (Temperature)
-    # Line 3: Memory Used / Total @ Mem Clock
-    # Line 4: Power Draw / Limit (Fan Speed)
-    tooltip="<b>$name</b>\nCore: $usage% @ ''${core_clock}MHz ($temp°C)\nMem:  $used / $total MiB @ ''${mem_clock}MHz\nPwr:  ''${power}W / ''${power_limit}W (Fan: $fan%)"
+    tooltip="<b>$name</b>\ncore: $usage% @ ''${core_clock}mhz ($temp°c)\nmem:  $used / $total mib @ ''${mem_clock}mhz\npwr:  ''${power}w / ''${power_limit}w (fan: $fan%)"
 
-    # Output JSON for Waybar
     echo "{\"text\": \"$usage\", \"tooltip\": \"$tooltip\"}"
   '';
 
   monitorTempMenu = pkgs.writeShellScriptBin "monitor-temp-menu" ''
-    options=" Warm (5000K)\n Standard (6500K)\n Cool (9300K)\n User Mode"
-    
-    # Location 1 = Top Left
+    options=" warm (5000k)\n standard (6500k)\n cool (9300k)\n user mode"
+
     selected=$(echo -e "$options" | ${pkgs.wofi}/bin/wofi --show dmenu \
       --style ${tempStyle} \
-      --width 220 --height 200 \
-      --location 1 --xoffset 10 --yoffset 10 \
+      --width 230 --height 210 \
+      --location 1 --xoffset 14 --yoffset 10 \
       --columns 1 --prompt "")
 
     case $selected in
-        " Warm (5000K)")     ddcutil setvcp 14 0x04 ;;
-        " Standard (6500K)") ddcutil setvcp 14 0x05 ;;
-        " Cool (9300K)")     ddcutil setvcp 14 0x08 ;;
-        " User Mode")        ddcutil setvcp 14 0x0b ;;
+        " warm (5000k)")     ddcutil setvcp 14 0x04 ;;
+        " standard (6500k)") ddcutil setvcp 14 0x05 ;;
+        " cool (9300k)")     ddcutil setvcp 14 0x08 ;;
+        " user mode")        ddcutil setvcp 14 0x0b ;;
     esac
   '';
 
@@ -146,23 +133,26 @@ in
       mainBar = {
         layer = "top";
         position = "top";
-        height = 38;
-        margin-top = 2;
+        height = 36;
+        margin-top = 6;
         margin-bottom = 0;
-        margin-left = 10;
-        margin-right = 10;
-        spacing = 4;
+        margin-left = 14;
+        margin-right = 14;
+        spacing = 0;
 
-        modules-left = [ "custom/logo" "custom/monitor-temp" "hyprland/workspaces" "mpris" ];
+        modules-left = [ "custom/logo"  "custom/monitor-temp" "custom/sep" "hyprland/workspaces" "custom/sep" "mpris" ];
         modules-center = [ "clock" ];
-        modules-right = [ "cava" "custom/gpu-usage" "cpu" "memory" "disk" "bluetooth" "custom/power" ];
-
-        # --- MODULES ---
+        modules-right = [ "cava" "custom/sep" "custom/gpu-usage" "cpu" "memory" "disk" "pulseaudio" "bluetooth" "custom/sep" "custom/power" ];
 
         "custom/logo" = {
           format = "";
           tooltip = false;
           on-click = "wofi --show drun";
+        };
+
+        "custom/sep" = {
+          format = "┃";
+          tooltip = false;
         };
 
         "hyprland/workspaces" = {
@@ -175,12 +165,6 @@ in
             "4" = "";
             "5" = "";
           };
-        };
-
-        "hyprland/window" = {
-          format = "{}";
-          max-length = 30;
-          separate-outputs = true;
         };
 
         "mpris" = {
@@ -201,7 +185,7 @@ in
           framerate = 30;
           autosens = 1;
           sensitivity = 5;
-          bars = 14;
+          bars = 12;
           lower_cutoff_freq = 50;
           higher_cutoff_freq = 10000;
           method = "pipewire";
@@ -227,20 +211,14 @@ in
           exec = "${gpuScript}/bin/gpu-info";
           return-type = "json";
           format = "󰢮 {}%";
-          on-click = "coolercontrol"; 
+          on-click = "coolercontrol";
           interval = 5;
         };
 
-        "custom/files" = {
-          format = "";
-          tooltip-format = "Open File Manager";
-          on-click = "thunar"; # Make sure you install 'xfce.thunar'
-        };
-
         "custom/monitor-temp" = {
-            format = "";
-            tooltip-format = "Select Color Temperature";
-            on-click = "${monitorTempMenu}/bin/monitor-temp-menu";
+          format = "";
+          tooltip-format = "color temperature";
+          on-click = "${monitorTempMenu}/bin/monitor-temp-menu";
         };
 
         "cpu" = {
@@ -251,85 +229,64 @@ in
 
         "memory" = {
           format = " {percentage}%";
-          tooltip-format = "RAM: {used:0.1f}G / {total:0.1f}G";
+          tooltip-format = "ram: {used:0.1f}g / {total:0.1f}g";
           on-click = "kitty -e btop";
         };
 
         "disk" = {
           format = " {percentage_used}%";
           path = "/";
-          tooltip-format = "{free} Free";
+          tooltip-format = "{free} free";
           on-click = "baobab";
+        };
+
+        "pulseaudio" = {
+          format = "{icon} {volume}%";
+          format-muted = "󰝟";
+          format-icons = {
+            default = [ "" "" "" ];
+          };
+          on-click = "pavucontrol";
+          on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+";
+          on-scroll-down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-";
         };
 
         "bluetooth" = {
           format = "";
           format-disabled = "󰂲";
-
           format-connected = "󰂱 {num_connections}";
           format-connected-battery = "󰂱 {num_connections}";
-
           tooltip-format = " {controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected\n\n{device_enumerate}";
-
           tooltip-format-enumerate-connected = "󰂄 {device_battery_percentage}% \t{device_alias}\t{device_address}";
-
           tooltip-format-enumerate-connected-battery = "󰂄 {device_battery_percentage}% \t{device_alias}\t{device_address}";
-
           on-click = "blueman-manager";
         };
 
-        "privacy" = {
-          icon-spacing = 4;
-          icon-size = 14;
-          transition-duration = 250;
-          modules = [
-            {
-              type = "screenshare";
-              tooltip = true;
-              tooltip-icon-size = 24;
-            }
-            {
-              type = "audio-in";
-              tooltip = true;
-              tooltip-icon-size = 24;
-            }
-          ];
-        };
-
         "tray" = {
-          spacing = 10;
-        };
-
-        "wireplumber" = {
-          format = "{icon} {volume}%";
-          format-muted = "󰑣 Muted";
-          format-icons = ["" "" ""];
-          on-click = "pavucontrol";
+          spacing = 8;
         };
 
         "clock" = {
           interval = 60;
-          format = " {:%H:%M}";
-          # Improved Alt Format: Shows "Day Name, DD-MM-YYYY" (e.g., "Mon, 15-01-2024")
-          format-alt = " {:%a, %d-%m-%Y}";
-          
+          format = "· {:%H:%M} ·";
+          format-alt = "{:%a  %d %b %Y}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
-          
+
           calendar = {
             mode = "month";
             mode-mon-col = 3;
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#b3f2ff'><b>{}</b></span>";
-              days = "<span color='#c0c5ce'><b>{}</b></span>";
-              weeks = "<span color='#00ffff'><b>W{}</b></span>";
-              today = "<span color='#f38ba8'><b><u>{}</u></b></span>";
+              months = "<span color='#8fb4d4'><b>{}</b></span>";
+              days = "<span color='#c8d1dc'>{}</span>";
+              weeks = "<span color='#4a525e'>w{}</span>";
+              today = "<span color='#d49759'><b><u>{}</u></b></span>";
             };
           };
-          
+
           actions = {
-            on-click-right = "mode"; # Right click switches between Month/Year view
+            on-click-right = "mode";
             on-scroll-up = "shift_up";
             on-scroll-down = "shift_down";
           };
@@ -337,7 +294,7 @@ in
 
         "custom/power" = {
           format = "";
-          on-click = "${powerMenu}/bin/power-menu"; 
+          on-click = "${powerMenu}/bin/power-menu";
           tooltip = false;
         };
       };
@@ -346,9 +303,9 @@ in
     style = ''
       * {
           border: none;
-          font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono";
+          font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", "Symbols Nerd Font";
           font-size: 13px;
-          font-weight: bold;
+          font-weight: normal;
           min-height: 0;
       }
 
@@ -356,128 +313,148 @@ in
           background-color: transparent;
       }
 
-      @keyframes border-flow {
-          0% { border-color: #00ffff; }
-          33% { border-color: #c0c5ce; }
-          66% { border-color: #00bfff; }
-          100% { border-color: #00ffff; }
+      /* --- UNIFIED SEGMENTED BAR --- */
+      .modules-left,
+      .modules-center,
+      .modules-right {
+          background-color: rgba(8, 9, 13, 0.55);
+          border: 1px solid rgba(212, 151, 89, 0.35);
+          border-radius: 14px;
+          padding: 2px 10px;
+          margin: 2px 4px;
+          color: #c8d1dc;
       }
 
-      @keyframes power-flow {
-          0% { border-color: #f38ba8; }
-          50% { border-color: #fab387; } 
-          100% { border-color: #f38ba8; }
-      }
-
-      /* --- UNIFIED PILL STYLE (DEFAULT) --- */
-      /* This sets a balanced default for Clock, CPU, Memory, etc. */
-      #custom-logo, 
-      #custom-files,
+      /* --- MODULE DEFAULTS --- */
+      #custom-logo,
       #custom-monitor-temp,
-      #workspaces, 
-      #window, 
+      #custom-sep,
+      #workspaces,
       #mpris,
       #cava,
       #custom-gpu-usage,
-      #cpu, 
-      #memory, 
-      #disk, 
-      #bluetooth, 
+      #cpu,
+      #memory,
+      #disk,
+      #pulseaudio,
+      #network,
+      #bluetooth,
       #tray,
-      #privacy,
-      #wireplumber, 
-      #clock, 
+      #clock,
       #custom-power {
-          background-color: rgba(11, 14, 20, 0.8);
-          color: #b3f2ff;
-          border: 2px solid #00ffff;
-          border-radius: 1000px;
-          
-          animation-name: border-flow;
-          animation-duration: 4s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-
-          margin: 3px 3px; 
-          
-          /* STANDARD BALANCED PADDING for everything else */
-          padding: 4px 12px;
+          padding: 0 8px;
+          color: #c8d1dc;
+          background: transparent;
       }
 
-      /* --- TARGETED FIXES --- */
-
-      /* 1. FORCE CIRCLES: Logo, Files, Temp, Power */
-      /* By using symmetric padding (10px on both sides), these become circles. */
-      #custom-logo, 
-      #custom-files, 
-      #custom-monitor-temp, 
-      #custom-power {
-          font-size: 18px;
-          padding-right: 10px;
-          min-width: 15px; /* Ensures narrower icons don't shrink the circle */
+      /* --- SEGMENT DIVIDER --- */
+      #custom-sep {
+          color: #4a525e;
+          padding: 0 8px;
+          font-size: 15px;
       }
 
-      /* 2. COLORS & FONTS */
-      
+      /* --- ACCENTS --- */
       #custom-logo {
-          padding-left: 5px;
-          padding-right: 11px;
+          color: #d49759;
+          font-size: 16px;
+          padding: 0 10px 0 6px;
       }
 
       #custom-monitor-temp {
-          padding-left: 5px;
+          color: #8fb4d4;
+          font-size: 15px;
       }
 
-      #custom-files {
-          padding-left: 6px;
+      #clock {
+          color: #dbe4ec;
+          font-weight: bold;
+          letter-spacing: 1px;
       }
 
       #custom-power {
-          color: #f38ba8;
-          padding-left: 6px;
-          animation-name: power-flow;
+          color: #b85842;
+          font-size: 16px;
+          padding: 0 6px 0 10px;
       }
 
-      /* 3. WORKSPACES: Fix "Too small a space" & "Center alignment" */
+      /* --- WORKSPACES --- */
       #workspaces {
-          padding-left: 2px;
-          padding-right: 2px;
-          padding-top: 0px;
-          padding-bottom: 0px;
+          padding: 0 2px;
       }
 
       #workspaces button {
-          color: #b3f2ff;
-          /* Increased min-width to give breathing room */
-          min-width: 20px; 
-          margin: 0px 1px;
-          
-          /* Asymmetric padding to center the icon (Less Left, More Right) */
-          padding-left: 0px;
-          padding-right: 6px;
+          color: #7e8694;
+          min-width: 18px;
+          padding: 0 9px 0 2px;
+          margin: 3px 1px;
+          border-radius: 8px;
+          background: transparent;
+          transition: all 200ms ease;
       }
 
       #workspaces button.active {
-          background-color: rgba(0, 255, 255, 0.15);
-          border-radius: 1000px;
-          box-shadow: 0 0 2px 1px rgba(0, 255, 255, 0.15);
+          color: #d49759;
+          background-color: rgba(212, 151, 89, 0.12);
       }
-      
+
       #workspaces button:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-          border-radius: 1000px;
+          background-color: rgba(143, 180, 212, 0.08);
+          color: #8fb4d4;
       }
 
-      /* --- OTHER MODULES (Unchanged) --- */
+      /* --- CAVA --- */
       #cava {
-          font-family: "FiraCode Nerd Font", "Symbols Nerd Font Mono", monospace;
-          padding-right: 16px; 
+          color: #6b8db0;
+          font-family: "JetBrainsMono Nerd Font", monospace;
+          padding: 0 10px;
       }
 
+      /* --- MPRIS --- */
+      #mpris {
+          color: #8fb4d4;
+          font-style: italic;
+      }
 
+      /* --- STATUS MODULES --- */
+      #cpu,
+      #memory,
+      #disk,
+      #pulseaudio,
+      #bluetooth {
+          color: #8fb4d4;
+      }
 
-      #tray, #privacy {
-          padding: 4px 10px;
+      #custom-gpu-usage {
+          color: #d49759;
+      }
+
+      #pulseaudio.muted {
+          color: #4a525e;
+      }
+
+      /* --- TRAY --- */
+      #tray {
+          padding: 0 6px;
+      }
+
+      #tray > .passive {
+          -gtk-icon-effect: dim;
+      }
+
+      #tray > .needs-attention {
+          -gtk-icon-effect: highlight;
+      }
+
+      tooltip {
+          background-color: rgba(8, 9, 13, 0.95);
+          border: 1px solid rgba(212, 151, 89, 0.45);
+          border-radius: 10px;
+      }
+
+      tooltip label {
+          color: #c8d1dc;
+          padding: 4px;
       }
     '';
   };

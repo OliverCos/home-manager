@@ -46,41 +46,39 @@
       # --- GENERAL ---
       general = {
         layout = "dwindle";
-        
-        gaps_in = 5;       
-        gaps_out = 10;     
-        border_size = 2;
 
-        # Rotating Gradient Border
-        "col.active_border" = "rgba(00ffffdd) rgba(c0c5cedd) rgba(00bfffdd) 45deg";
-        "col.inactive_border" = "rgba(1a1a1aa0)";
+        gaps_in = 8;
+        gaps_out = 18;
+        border_size = 1;
+
+        "col.active_border" = "rgba(d49759bb)";
+        "col.inactive_border" = "rgba(0f1218aa)";
 
         resize_on_border = true;
       };
 
-      # --- DECORATION (Rounder Corners) ---
+      # --- DECORATION ---
       decoration = {
-        # Increased from 10 to 18 to match Waybar pills
-        rounding = 18; 
-        
+        rounding = 14;
+
         active_opacity = 1.0;
-        inactive_opacity = 0.90;
+        inactive_opacity = 0.94;
 
         blur = {
           enabled = true;
-          size = 6;         
-          passes = 2;       
-          ignore_opacity = true;
+          size = 9;
+          passes = 3;
+          ignore_opacity = false;
           new_optimizations = true;
-          xray = true;      
+          xray = true;
         };
 
         shadow = {
           enabled = true;
-          range = 15;
-          render_power = 3;
-          color = "rgba(00ffff1a)"; 
-          color_inactive = "rgba(00000055)";
+          range = 28;
+          render_power = 4;
+          color = "rgba(00000080)";
+          color_inactive = "rgba(00000040)";
         };
       };
 
@@ -90,27 +88,25 @@
         "match:namespace waybar, ignore_alpha 0"
       ];
 
-      # --- ANIMATIONS (Calmed Down) ---
+      # --- ANIMATIONS (Calm, eased decel) ---
       animations = {
         enabled = true;
-        
-        # 'overshot' is smoother/less bouncy than 'wind'
+
         bezier = [
-          "overshot, 0.05, 0.9, 0.1, 1.05"
-          "smoothOut, 0.36, 0, 0.66, -0.56"
-          "smoothIn, 0.25, 1, 0.5, 1"
+          "drift, 0.16, 1, 0.3, 1"
+          "settle, 0.2, 0.9, 0.4, 1"
+          "fadeOut, 0.4, 0, 0.6, 0.2"
         ];
 
         animation = [
-          "windows, 1, 4, overshot, popin 80%"
-          "windowsOut, 1, 4, smoothOut, popin 80%"
-          "windowsMove, 1, 4, default"
-          
-          "border, 1, 10, default"
-          "borderangle, 1, 30, default, loop" 
-          
-          "fade, 1, 5, smoothIn"
-          "workspaces, 1, 5, default"
+          "windows, 1, 6, drift, popin 92%"
+          "windowsOut, 1, 6, fadeOut, popin 92%"
+          "windowsMove, 1, 6, drift"
+
+          "border, 1, 12, settle"
+
+          "fade, 1, 8, settle"
+          "workspaces, 1, 7, drift, slidefade 15%"
         ];
       };
 

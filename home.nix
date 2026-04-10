@@ -43,7 +43,7 @@
     (graphite-gtk-theme.override {
       colorVariants = [ "dark" ];
       tweaks = [ "rimless" "darker" ];
-      themeVariants = [ "default" ];
+      themeVariants = [ "orange" ];
     })
     papirus-icon-theme
     nwg-look
@@ -108,11 +108,11 @@
       wallpaper = [
         {
           monitor = "";
-          path = "/home/splogdes/Pictures/wallpaper.png";
+          path = "/home/splogdes/Pictures/artimusII.jpg";
         }
       ];
       preload = [
-        "/home/splogdes/Pictures/wallpaper.png"
+        "/home/splogdes/Pictures/artimusII.jpg"
       ];
       splash = false;
     };
@@ -131,7 +131,7 @@
     gtk.enable = true;
     x11.enable = true;
     package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Ice";
+    name = "Bibata-Modern-Classic";
     size = 24;
   };
 
@@ -139,10 +139,11 @@
       enable = true;
       
       theme = {
-        name = "Graphite-Dark";
+        name = "Graphite-orange-Dark";
         package = pkgs.graphite-gtk-theme.override {
             tweaks = [ "rimless" "darker" ];
             colorVariants = [ "dark" ];
+            themeVariants = [ "orange" ];
         };
       };
 
