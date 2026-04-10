@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   powerStyle = pkgs.writeText "power-style.css" ''
     window {
@@ -132,10 +132,15 @@ let
 
 in
 {
+  systemd.user.services.waybar.Unit = {
+    After = lib.mkForce [ "hyprland-session.target" "pipewire.service" ];
+    Wants = [ "pipewire.service" ];
+  };
+
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    systemd.target = "hyprland-session.target";
+    systemd.targets = [ "hyprland-session.target" ];
 
     settings = {
       mainBar = {
@@ -150,8 +155,7 @@ in
 
         modules-left = [ "custom/logo" "custom/monitor-temp" "hyprland/workspaces" "mpris" ];
         modules-center = [ "clock" ];
-        # Added 'custom/cava' next to the media player
-        modules-right = [ "custom/cava" "custom/gpu-usage" "cpu" "memory" "disk" "bluetooth" "custom/power" ];
+        modules-right = [ "cava" "custom/gpu-usage" "cpu" "memory" "disk" "bluetooth" "custom/power" ];
 
         # --- MODULES ---
 
@@ -193,10 +197,27 @@ in
           max-length = 30;
         };
 
-        "custom/cava" = {
-          exec = "cava -p <(echo -e '[general]\\nframerate=60\\nbars=12\\n[output]\\nmethod=raw\\nraw_target=/dev/stdout\\ndata_format=ascii\\nascii_max_range=7') | sed -u 's/;//g;s/0/ /g;s/1/▂/g;s/2/▃/g;s/3/▄/g;s/4/▅/g;s/5/▆/g;s/6/▇/g;s/7/█/g;'";
-          format = "{}";
-          tooltip = false;
+        "cava" = {
+          framerate = 30;
+          autosens = 1;
+          sensitivity = 5;
+          bars = 14;
+          lower_cutoff_freq = 50;
+          higher_cutoff_freq = 10000;
+          method = "pipewire";
+          source = "auto";
+          stereo = true;
+          reverse = false;
+          bar_delimiter = 0;
+          monstercat = false;
+          waves = false;
+          noise_reduction = 0.77;
+          input_delay = 2;
+          hide_on_silence = false;
+          format-icons = [ " " "▁" "▂" "▃" "▄" "▅" "▆" "▇" ];
+          actions = {
+            on-click-right = "mode";
+          };
           on-click = "pavucontrol";
           on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+";
           on-scroll-down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-";
@@ -356,7 +377,7 @@ in
       #workspaces, 
       #window, 
       #mpris,
-      #custom-cava,
+      #cava,
       #custom-gpu-usage,
       #cpu, 
       #memory, 
@@ -448,8 +469,8 @@ in
       }
 
       /* --- OTHER MODULES (Unchanged) --- */
-      #custom-cava {
-          font-family: "FiraCode Nerd Font", "Noto Color Emoji"; 
+      #cava {
+          font-family: "FiraCode Nerd Font", "Symbols Nerd Font Mono", monospace;
           padding-right: 16px; 
       }
 

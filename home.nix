@@ -59,6 +59,17 @@
     ddcutil
     obsidian
     claude-code
+    (symlinkJoin {
+      name = "picoscope-wrapped";
+      paths = [ picoscope ];
+      buildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/picoscope \
+          --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}:${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
+      '';
+    })
+    # ckan is for kerbal space program mod management
+    ckan
   ];
   
   services.playerctld.enable = true;
@@ -133,7 +144,10 @@
       };
       
       gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-      gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4 = {
+        extraConfig.gtk-application-prefer-dark-theme = 1;
+        theme = null;
+      };
     };
 
   programs.home-manager.enable = true;
