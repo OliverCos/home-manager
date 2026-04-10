@@ -79,9 +79,17 @@
   programs = {
     git = {
       enable = true;
-      settings.user = {
-        name = "splogdes";
-        email = "95136830+splogdes@users.noreply.github.com";
+      settings = {
+        user = {
+          name = "splogdes";
+          email = "95136830+splogdes@users.noreply.github.com";
+        };
+        push = {
+          autoSetupRemote = true;
+        };
+        init = {
+          defaultBranch = "main";
+        };
       };
     };
 
