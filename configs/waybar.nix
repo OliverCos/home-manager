@@ -136,13 +136,13 @@ in
         height = 36;
         margin-top = 6;
         margin-bottom = 0;
-        margin-left = 14;
-        margin-right = 14;
+        margin-left = 12;
+        margin-right = 12;
         spacing = 0;
 
         modules-left = [ "custom/logo"  "custom/monitor-temp" "custom/sep" "hyprland/workspaces" "custom/sep" "mpris" ];
         modules-center = [ "clock" ];
-        modules-right = [ "cava" "custom/sep" "custom/gpu-usage" "cpu" "memory" "disk" "pulseaudio" "bluetooth" "custom/sep" "custom/power" ];
+        modules-right = [ "cava" "custom/sep" "custom/gpu-usage" "cpu" "memory" "disk" "bluetooth" "custom/sep" "custom/power" ];
 
         "custom/logo" = {
           format = "";
@@ -358,7 +358,7 @@ in
       #custom-logo {
           color: #d49759;
           font-size: 16px;
-          padding: 0 10px 0 6px;
+          padding: 0 9px 0 2px;
       }
 
       #custom-monitor-temp {
@@ -375,7 +375,7 @@ in
       #custom-power {
           color: #b85842;
           font-size: 16px;
-          padding: 0 6px 0 10px;
+          padding: 0 9px 0 2px;
       }
 
       /* --- WORKSPACES --- */
@@ -406,7 +406,8 @@ in
       /* --- CAVA --- */
       #cava {
           color: #6b8db0;
-          font-family: "JetBrainsMono Nerd Font", monospace;
+          font-size: 12px;
+          font-family: "Symbols Nerd Font Mono";
           padding: 0 10px;
       }
 
