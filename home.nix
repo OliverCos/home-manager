@@ -3,6 +3,10 @@
 
 {
   imports = [
+    ./configs/i3.nix
+    ./configs/i3status-rust.nix
+    ./configs/rofi.nix
+    ./configs/dunst.nix
     ./configs/kitty.nix
     ./configs/zsh.nix
     ./configs/btop.nix
@@ -32,10 +36,34 @@
     [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
   '';
 
+  home.file."startwm.sh" = {
+    executable = true;
+    text = ''
+      #!/bin/sh
+      [ -f ~/.xprofile ] && . ~/.xprofile
+      export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/share:/usr/local/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
+      export PATH="$HOME/.nix-profile/bin:$PATH"
+      exec $HOME/.nix-profile/bin/i3
+    '';
+  };
+
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
-    kitty
+    # Terminal & tools
     tmux
     fzf
+    fastfetch
+
+    # i3 ecosystem
+    i3
+    i3status-rust
+    rofi
+    dunst
+    feh
+    libnotify
+
+    # Theming
     glib
     (graphite-gtk-theme.override {
       colorVariants = [ "dark" ];
@@ -43,9 +71,11 @@
       themeVariants = [ "orange" ];
     })
     papirus-icon-theme
-    fastfetch
     bibata-cursors
     nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+
+    # Apps
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 

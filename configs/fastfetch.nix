@@ -4,10 +4,10 @@
     enable = true;
     settings = {
       logo = {
-        source = "nixos_small";
+        source = "fedora_small";
         color = {
-          "1" = "90";
-          "2" = "90";
+          "1" = "34";
+          "2" = "37";
         };
         padding = { top = 1; right = 2; };
       };

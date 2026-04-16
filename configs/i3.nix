@@ -1,0 +1,168 @@
+{ pkgs, lib, ... }:
+
+let
+  mod = "Mod4";
+
+  ws1 = "1: ";
+  ws2 = "2: ";
+  ws3 = "3: ";
+  ws4 = "4: ";
+  ws5 = "5: ";
+in
+{
+  xsession = {
+    enable = true;
+    windowManager.i3 = {
+      enable = true;
+      config = {
+        modifier = mod;
+        terminal = "xterm";
+
+        fonts = {
+          names = [ "JetBrainsMono Nerd Font" "Symbols Nerd Font Mono" ];
+          size = 10.0;
+        };
+
+        gaps = {
+          inner = 8;
+          outer = 8;
+        };
+
+        colors = {
+          focused = {
+            border = "#d49759";
+            background = "#0f1218";
+            text = "#c8d1dc";
+            indicator = "#d49759";
+            childBorder = "#d49759";
+          };
+          focusedInactive = {
+            border = "#15191f";
+            background = "#0f1218";
+            text = "#7e8694";
+            indicator = "#15191f";
+            childBorder = "#15191f";
+          };
+          unfocused = {
+            border = "#15191f";
+            background = "#08090d";
+            text = "#7e8694";
+            indicator = "#15191f";
+            childBorder = "#15191f";
+          };
+          urgent = {
+            border = "#b85842";
+            background = "#08090d";
+            text = "#dbe4ec";
+            indicator = "#b85842";
+            childBorder = "#b85842";
+          };
+        };
+
+        window = {
+          titlebar = false;
+          border = 1;
+        };
+
+        floating = {
+          titlebar = false;
+          border = 1;
+        };
+
+        bars = [{
+          position = "top";
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
+          fonts = {
+            names = [ "JetBrainsMono Nerd Font" "Symbols Nerd Font Mono" ];
+            size = 11.0;
+          };
+          colors = {
+            background = "#08090d";
+            statusline = "#c8d1dc";
+            separator = "#4a525e";
+            focusedWorkspace = {
+              border = "#d49759";
+              background = "#d49759";
+              text = "#08090d";
+            };
+            activeWorkspace = {
+              border = "#0f1218";
+              background = "#0f1218";
+              text = "#c8d1dc";
+            };
+            inactiveWorkspace = {
+              border = "#08090d";
+              background = "#08090d";
+              text = "#7e8694";
+            };
+            urgentWorkspace = {
+              border = "#b85842";
+              background = "#b85842";
+              text = "#dbe4ec";
+            };
+          };
+        }];
+
+        keybindings = lib.mkOptionDefault {
+          # Focus
+          "${mod}+Left" = "focus left";
+          "${mod}+Right" = "focus right";
+          "${mod}+Up" = "focus up";
+          "${mod}+Down" = "focus down";
+
+          # Move windows
+          "${mod}+Shift+Left" = "move left";
+          "${mod}+Shift+Right" = "move right";
+          "${mod}+Shift+Up" = "move up";
+          "${mod}+Shift+Down" = "move down";
+
+          # Resize
+          "${mod}+l" = "resize grow width 20 px";
+          "${mod}+j" = "resize shrink width 20 px";
+          "${mod}+i" = "resize shrink height 20 px";
+          "${mod}+k" = "resize grow height 20 px";
+
+          # Actions
+          "${mod}+Return" = "exec xterm";
+          "${mod}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
+          "${mod}+q" = "kill";
+          "${mod}+f" = "fullscreen toggle";
+          "${mod}+space" = "floating toggle";
+          "${mod}+Shift+e" = "exit";
+          "${mod}+Shift+r" = "restart";
+
+          # Workspaces
+          "${mod}+1" = "workspace ${ws1}";
+          "${mod}+2" = "workspace ${ws2}";
+          "${mod}+3" = "workspace ${ws3}";
+          "${mod}+4" = "workspace ${ws4}";
+          "${mod}+5" = "workspace ${ws5}";
+
+          "${mod}+Shift+1" = "move container to workspace ${ws1}";
+          "${mod}+Shift+2" = "move container to workspace ${ws2}";
+          "${mod}+Shift+3" = "move container to workspace ${ws3}";
+          "${mod}+Shift+4" = "move container to workspace ${ws4}";
+          "${mod}+Shift+5" = "move container to workspace ${ws5}";
+
+          # Split direction
+          "${mod}+h" = "split h";
+          "${mod}+v" = "split v";
+        };
+
+        assigns = {
+          "${ws2}" = [{ class = "zen"; }];
+          "${ws3}" = [{ class = "Code"; }];
+        };
+
+        startup = [
+          { command = "${pkgs.feh}/bin/feh --bg-fill /home/oliver/Pictures/artimusii.jpg"; always = true; notification = false; }
+          { command = "${pkgs.dunst}/bin/dunst"; notification = false; }
+          { command = "xterm"; notification = false; }
+        ];
+      };
+      extraConfig = ''
+        for_window [urgent=latest] focus
+      '';
+    };
+  };
+}

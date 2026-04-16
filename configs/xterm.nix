@@ -2,10 +2,12 @@
 
 {
   xresources.properties = {
+    "XTerm*locale"      = false;
+    "XTerm*utf8"        = 2;
     "XTerm*background"  = "#08090d";
     "XTerm*foreground"  = "#c8d1dc";
     "XTerm*cursorColor" = "#d49759";
-    "XTerm*faceName"    = "JetBrainsMono Nerd Font";
+    "XTerm*faceName"    = "JetBrainsMono Nerd Font Mono";
     "XTerm*faceSize"    = 12;
 
     "XTerm*color0"  = "#15191f";

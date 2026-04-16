@@ -28,7 +28,7 @@
         "#3a4250" "#d27260" "#9bc7a3" "#f0b070"
         "#8fb4d4" "#a89cc4" "#b3d4ec" "#dbe4ec"
       ];
-      font = "JetBrainsMono Nerd Font 12";
+      font = "JetBrainsMono Nerd Font Mono 12";
       use-system-font = false;
       use-theme-transparency = false;
       use-transparent-background = false;
