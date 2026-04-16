@@ -21,6 +21,9 @@
     homeDirectory = "/home/oliver";
     stateVersion = "25.11";
     sessionPath = [ "/opt/2025.1/Vivado/bin" ];
+    sessionVariables = {
+      ZSH_DISABLE_COMPFIX = "true";
+    };
   };
   xdg.cacheHome = "/scratch/oliver/.cache";
 

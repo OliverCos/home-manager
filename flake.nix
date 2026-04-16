@@ -17,7 +17,7 @@
   };
 
   outputs = { self, nixpkgs, home-manager, zen-browser, ... }@inputs: {
-    homeConfigurations."oliver@AZR-FPGA-01" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."oliver" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         config.allowUnfree = true;
