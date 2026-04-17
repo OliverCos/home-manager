@@ -14,15 +14,22 @@
     ./configs/gtk.nix
     ./configs/gnome-terminal.nix
     ./configs/xterm.nix
+    ./configs/neovim.nix
   ];
 
   home = {
     username = "oliver";
     homeDirectory = "/home/oliver";
     stateVersion = "25.11";
-    sessionPath = [ "/opt/2025.1/Vivado/bin" ];
+    sessionPath = [ 
+      "/opt/2025.1/Vivado/bin"
+      "/opt/questasim/bin"
+      "/opt/2025.1/Vitis/bin"
+    ];
     sessionVariables = {
       ZSH_DISABLE_COMPFIX = "true";
+      LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+      LANG = "en_US.UTF-8";
     };
   };
   xdg.cacheHome = "/scratch/oliver/.cache";

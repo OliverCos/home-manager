@@ -6,8 +6,13 @@ let
   ws1 = "1: ";
   ws2 = "2: ";
   ws3 = "3: ";
-  ws4 = "4: ";
-  ws5 = "5: ";
+  ws4 = "4:󰍛 ";
+  ws5 = "5:󰙛 ";
+  ws6 = "6: ";
+  ws7 = "7: ";
+  ws8 = "8: ";
+  ws9 = "9: ";
+  ws10 = "10: ";
 in
 {
   xsession = {
@@ -137,12 +142,22 @@ in
           "${mod}+3" = "workspace ${ws3}";
           "${mod}+4" = "workspace ${ws4}";
           "${mod}+5" = "workspace ${ws5}";
+          "${mod}+6" = "workspace ${ws6}";
+          "${mod}+7" = "workspace ${ws7}";
+          "${mod}+8" = "workspace ${ws8}";
+          "${mod}+9" = "workspace ${ws9}";
+          "${mod}+0" = "workspace ${ws10}";
 
           "${mod}+Shift+1" = "move container to workspace ${ws1}";
           "${mod}+Shift+2" = "move container to workspace ${ws2}";
           "${mod}+Shift+3" = "move container to workspace ${ws3}";
           "${mod}+Shift+4" = "move container to workspace ${ws4}";
           "${mod}+Shift+5" = "move container to workspace ${ws5}";
+          "${mod}+Shift+6" = "move container to workspace ${ws6}";
+          "${mod}+Shift+7" = "move container to workspace ${ws7}";
+          "${mod}+Shift+8" = "move container to workspace ${ws8}";
+          "${mod}+Shift+9" = "move container to workspace ${ws9}";
+          "${mod}+Shift+0" = "move container to workspace ${ws10}";
 
           # Split direction
           "${mod}+h" = "split h";
