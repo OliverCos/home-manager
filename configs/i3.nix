@@ -1,18 +1,18 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   mod = "Mod4";
 
-  ws1 = "1: ";
-  ws2 = "2: ";
-  ws3 = "3: ";
-  ws4 = "4:󰍛 ";
-  ws5 = "5:󰙛 ";
-  ws6 = "6: ";
-  ws7 = "7: ";
-  ws8 = "8: ";
-  ws9 = "9: ";
-  ws10 = "10: ";
+  ws1 = "1";
+  ws2 = "2";
+  ws3 = "3";
+  ws4 = "4";
+  ws5 = "5";
+  ws6 = "6";
+  ws7 = "7";
+  ws8 = "8";
+  ws9 = "9";
+  ws10 = "10";
 in
 {
   xsession = {
@@ -24,7 +24,7 @@ in
         terminal = "xterm";
 
         fonts = {
-          names = [ "JetBrainsMono Nerd Font" "Symbols Nerd Font Mono" ];
+          names = [ "JetBrainsMono Nerd Font" ];
           size = 10.0;
         };
 
@@ -78,7 +78,7 @@ in
           position = "top";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
           fonts = {
-            names = [ "JetBrainsMono Nerd Font" "Symbols Nerd Font Mono" ];
+            names = [ "JetBrainsMono Nerd Font" ];
             size = 11.0;
           };
           colors = {
@@ -108,7 +108,7 @@ in
           };
         }];
 
-        keybindings = lib.mkOptionDefault {
+        keybindings = {
           # Focus
           "${mod}+Left" = "focus left";
           "${mod}+Right" = "focus right";
@@ -170,7 +170,7 @@ in
         };
 
         startup = [
-          { command = "${pkgs.feh}/bin/feh --bg-fill /home/oliver/Pictures/artimusii.jpg"; always = true; notification = false; }
+          { command = "${pkgs.feh}/bin/feh --bg-fill /home/oliverc/Pictures/artimusii.jpg"; always = true; notification = false; }
           { command = "${pkgs.dunst}/bin/dunst"; notification = false; }
           { command = "xterm"; notification = false; }
         ];
