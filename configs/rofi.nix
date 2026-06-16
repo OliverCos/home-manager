@@ -3,7 +3,7 @@
 {
   programs.rofi = {
     enable = true;
-    font = "JetBrainsMono Nerd Font 12";
+    font = "JetBrainsMono Nerd Font 10";
     terminal = "gnome-terminal";
     extraConfig = {
       show-icons = true;

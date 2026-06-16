@@ -9,7 +9,7 @@
     };
     settings = {
       global = {
-        font = "JetBrainsMono Nerd Font 11";
+        font = "JetBrainsMono Nerd Font 10";
         width = 380;
         height = 140;
         origin = "top-right";

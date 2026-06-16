@@ -11,6 +11,11 @@ in
   gtk = {
     enable = true;
 
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 10;
+    };
+
     theme = {
       name = "Graphite-orange-Dark";
       package = graphiteTheme;
@@ -31,7 +36,7 @@ in
     x11.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Ice";
-    size = 24;
+    size = 16;
   };
 
   xdg.dataFile = {

@@ -5,7 +5,7 @@
     settings = {
       # --- TYPOGRAPHY ---
       font_family = "JetBrainsMono Nerd Font";
-      font_size = "12.5";
+      font_size = "10.5";
       disable_ligatures = "never";
 
       # --- BACKGROUND ---

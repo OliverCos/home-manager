@@ -25,12 +25,12 @@ in
 
         fonts = {
           names = [ "JetBrainsMono Nerd Font" ];
-          size = 10.0;
+          size = 9.0;
         };
 
         gaps = {
-          inner = 8;
-          outer = 8;
+          inner = 0;
+          outer = 0;
         };
 
         colors = {
@@ -79,7 +79,7 @@ in
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
           fonts = {
             names = [ "JetBrainsMono Nerd Font" ];
-            size = 11.0;
+            size = 10.0;
           };
           colors = {
             background = "#08090d";
@@ -136,6 +136,7 @@ in
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+r" = "restart";
           "${mod}+Shift+x" = "exec --no-startup-id ${pkgs.i3lock}/bin/i3lock -c 0f1218";
+          "${mod}+b" = "exec --no-startup-id ${pkgs.blueman}/bin/blueman-manager";
 
           # Workspaces
           "${mod}+1" = "workspace ${ws1}";
