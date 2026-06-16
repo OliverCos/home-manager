@@ -6,14 +6,14 @@
     "XTerm*utf8"        = 2;
     "XTerm*background"  = "#08090d";
     "XTerm*foreground"  = "#c8d1dc";
-    "XTerm*cursorColor" = "#d49759";
+    "XTerm*cursorColor" = "#b08152";
     "XTerm*faceName"    = "JetBrainsMono Nerd Font Mono";
     "XTerm*faceSize"    = 12;
 
     "XTerm*color0"  = "#15191f";
     "XTerm*color1"  = "#b85842";
     "XTerm*color2"  = "#7da784";
-    "XTerm*color3"  = "#d49759";
+    "XTerm*color3"  = "#b08152";
     "XTerm*color4"  = "#6b8db0";
     "XTerm*color5"  = "#8a7aa0";
     "XTerm*color6"  = "#8fb4d4";
@@ -27,8 +27,12 @@
     "XTerm*color14" = "#b3d4ec";
     "XTerm*color15" = "#dbe4ec";
 
-    "XTerm*saveLines"      = 4096;
-    "XTerm*scrollBar"      = false;
-    "XTerm*internalBorder" = 16;
+    "XTerm*saveLines"         = 4096;
+    "XTerm*scrollBar"         = false;
+    "XTerm*internalBorder"    = 16;
+
+    # Clipboard: selection also writes to CLIPBOARD (Ctrl+Shift+C/V friendly)
+    "XTerm*selectToClipboard" = true;
+    "XTerm*translations"      = ''#override \n Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n Ctrl Shift <Key>Insert: insert-selection(CLIPBOARD)'';
   };
 }

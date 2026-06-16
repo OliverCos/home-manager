@@ -17,9 +17,9 @@
         bg-alt:   #0f1218b3;
         fg:       #c8d1dc;
         fg-dim:   #7e8694;
-        accent:   #d49759;
-        accent-t: #d4975938;
-        border-c: #d497598c;
+        accent:   #b08152;
+        accent-t: #b0815238;
+        border-c: #b081528c;
         urgent:   #b85842;
 
         background-color: transparent;

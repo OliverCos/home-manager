@@ -1,5 +1,5 @@
 {
-  description = "User Flake for splogdes";
+  description = "Home-manager flake for the work lab mini PC (MiniST)";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

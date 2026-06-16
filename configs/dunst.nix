@@ -18,7 +18,7 @@
         background = "#0f1218e6";
         foreground = "#c8d1dc";
 
-        frame_color = "#d49759";
+        frame_color = "#b08152";
         frame_width = 1;
         corner_radius = 14;
 
@@ -39,7 +39,7 @@
       };
 
       urgency_normal = {
-        frame_color = "#d49759";
+        frame_color = "#b08152";
         timeout = 5;
       };
 

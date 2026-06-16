@@ -1,5 +1,5 @@
 
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
 {
   imports = [
@@ -12,16 +12,24 @@
     ./configs/btop.nix
     ./configs/fastfetch.nix
     ./configs/gtk.nix
-    ./configs/gnome-terminal.nix
     ./configs/xterm.nix
     ./configs/neovim.nix
+    ./configs/autorandr.nix
+    ./packages
   ];
+
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
   home = {
     username = "oliver";
     homeDirectory = "/home/oliver";
     stateVersion = "25.11";
-    sessionPath = [ 
+    sessionPath = [
       "/opt/2025.1/Vivado/bin"
       "/opt/questasim/bin"
       "/opt/2025.1/Vitis/bin"
@@ -31,31 +39,12 @@
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
       LANG = "en_US.UTF-8";
     };
+    activation.dconfSettings = lib.mkForce (lib.hm.dag.entryAnywhere "");
   };
-  xdg.cacheHome = "/scratch/oliver/.cache";
-
-  home.file.".bashrc".text = ''
-    # If running interactively, switch to zsh
-    if [[ $- == *i* ]] && [ -x "$HOME/.nix-profile/bin/zsh" ]; then
-      export SHELL="$HOME/.nix-profile/bin/zsh"
-      exec "$HOME/.nix-profile/bin/zsh" -l
-    fi
-  '';
 
   home.file.".xprofile".text = ''
     [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
   '';
-
-  home.file."startwm.sh" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      [ -f ~/.xprofile ] && . ~/.xprofile
-      export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.local/share:/usr/share:/usr/local/share''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
-      export PATH="$HOME/.nix-profile/bin:$PATH"
-      exec $HOME/.nix-profile/bin/i3
-    '';
-  };
 
   fonts.fontconfig.enable = true;
 
@@ -64,6 +53,7 @@
     tmux
     fzf
     fastfetch
+    github-copilot-cli
 
     # i3 ecosystem
     i3
@@ -72,6 +62,18 @@
     dunst
     feh
     libnotify
+
+    # Screen lock & display
+    i3lock
+    xss-lock
+    autorandr
+    xset
+
+    # Keyring / secrets
+    libsecret
+    gnome-keyring
+    seahorse
+    polkit_gnome
 
     # Theming
     glib
@@ -83,11 +85,19 @@
     papirus-icon-theme
     bibata-cursors
     nerd-fonts.jetbrains-mono
-    nerd-fonts.symbols-only
 
     # Apps
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    # Dev
+    uv
+    verilator
   ];
+
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "pkcs11" "secrets" "ssh" ];
+  };
 
   programs = {
     direnv = {
@@ -107,6 +117,22 @@
         };
         init = {
           defaultBranch = "main";
+        };
+        fetch = {
+          prune = true;
+        };
+      };
+    };
+
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Oliver Cosgrove";
+          email = "oliver.cosgrove@oriolenetworks.com";
+        };
+        revset-aliases = {
+          "immutable_heads()" = "builtin_immutable_heads() ~ ((bookmarks() | remote_bookmarks()) & mine())";
         };
       };
     };

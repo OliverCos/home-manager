@@ -17,7 +17,7 @@
               good_bg = "#08090d";
               good_fg = "#7da784";
               warning_bg = "#08090d";
-              warning_fg = "#d49759";
+              warning_fg = "#b08152";
               critical_bg = "#08090d";
               critical_fg = "#b85842";
               separator_bg = "#08090d";
@@ -34,12 +34,13 @@
           }
           {
             block = "memory";
-            format = "  $mem_used_percents ";
+            format = "  $mem_total_used_percents ";
             interval = 5;
           }
           {
             block = "disk_space";
             path = "/";
+            info_type = "used";
             format = "  $percentage ";
             interval = 30;
           }

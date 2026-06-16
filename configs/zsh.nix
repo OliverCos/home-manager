@@ -8,10 +8,10 @@
 
   home.sessionVariables = {
     FZF_DEFAULT_OPTS = " \
-      --color=fg:#c8d1dc,bg:#08090d,hl:#d49759 \
+      --color=fg:#c8d1dc,bg:#08090d,hl:#b08152 \
       --color=fg+:#dbe4ec,bg+:#1f242e,hl+:#f0b070 \
-      --color=info:#6b8db0,prompt:#8fb4d4,pointer:#d49759 \
-      --color=marker:#d49759,spinner:#d49759,header:#6b8db0 \
+      --color=info:#6b8db0,prompt:#8fb4d4,pointer:#b08152 \
+      --color=marker:#b08152,spinner:#b08152,header:#6b8db0 \
       --color=border:#1f242e \
       --border='rounded' --padding='1' --margin='1' \
       --prompt='search ❯ ' \
@@ -37,7 +37,7 @@
       setopt PROMPT_SUBST
 
       local CL_BLUE="%F{#8fb4d4}"
-      local CL_AMBER="%F{#d49759}"
+      local CL_AMBER="%F{#b08152}"
       local CL_TEXT="%F{#c8d1dc}"
       local CL_DIM="%F{#4a525e}"
       local CL_RUST="%F{#b85842}"

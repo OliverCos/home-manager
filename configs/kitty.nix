@@ -21,7 +21,7 @@
       hide_window_decorations = "yes";
 
       # --- CURSOR ---
-      cursor = "#d49759";
+      cursor = "#b08152";
       cursor_text_color = "#08090d";
       cursor_shape = "beam";
       cursor_beam_thickness = "1.5";
@@ -32,7 +32,7 @@
       tab_bar_style = "powerline";
       tab_powerline_style = "slanted";
       active_tab_foreground = "#08090d";
-      active_tab_background = "#d49759";
+      active_tab_background = "#b08152";
       active_tab_font_style = "bold";
       inactive_tab_foreground = "#7e8694";
       inactive_tab_background = "#0f1218";
@@ -52,7 +52,7 @@
       color10 = "#9bc7a3";
 
       # Yellow: amber
-      color3  = "#d49759";
+      color3  = "#b08152";
       color11 = "#f0b070";
 
       # Blue: ocean / atmosphere
@@ -73,7 +73,7 @@
 
       # --- UX EXTRAS ---
       selection_foreground = "#08090d";
-      selection_background = "#d49759";
+      selection_background = "#b08152";
       url_color = "#8fb4d4";
       url_style = "single";
     };

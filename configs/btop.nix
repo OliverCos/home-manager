@@ -29,7 +29,7 @@
     theme[main_bg]="#08090d"
     theme[main_fg]="#c8d1dc"
     theme[title]="#dbe4ec"
-    theme[hi_fg]="#d49759"
+    theme[hi_fg]="#b08152"
 
     # --- BOX OUTLINES (dim ocean blue) ---
     theme[cpu_box]="#3a5b7a"
@@ -39,7 +39,7 @@
     theme[div_line]="#1f242e"
 
     # --- SELECTION & INACTIVE ---
-    theme[selected_bg]="#d49759"
+    theme[selected_bg]="#b08152"
     theme[selected_fg]="#08090d"
     theme[inactive_fg]="#4a525e"
     theme[meter_bg]="#15191f"
@@ -50,7 +50,7 @@
 
     # --- TEMPERATURE GRADIENT (cool → hot) ---
     theme[temp_start]="#6b8db0"
-    theme[temp_mid]="#d49759"
+    theme[temp_mid]="#b08152"
     theme[temp_end]="#b85842"
 
     # --- CPU GRAPH (data stream) ---
@@ -76,7 +76,7 @@
 
     # Used (amber → solar)
     theme[used_start]="#6b8db0"
-    theme[used_mid]="#d49759"
+    theme[used_mid]="#b08152"
     theme[used_end]="#f0b070"
 
     # --- NETWORK GRAPHS ---
@@ -87,12 +87,12 @@
 
     # Upload (amber, direction = warmth)
     theme[upload_start]="#a85b2e"
-    theme[upload_mid]="#d49759"
+    theme[upload_mid]="#b08152"
     theme[upload_end]="#f0b070"
 
     # --- PROCESS BOX ---
     theme[process_start]="#6b8db0"
     theme[process_mid]="#8fb4d4"
-    theme[process_end]="#d49759"
+    theme[process_end]="#b08152"
   '';
 }

@@ -1,18 +1,18 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   mod = "Mod4";
 
-  ws1 = "1: ";
-  ws2 = "2: ";
-  ws3 = "3: ";
-  ws4 = "4:󰍛 ";
-  ws5 = "5:󰙛 ";
-  ws6 = "6: ";
-  ws7 = "7: ";
-  ws8 = "8: ";
-  ws9 = "9: ";
-  ws10 = "10: ";
+  ws1 = "1";
+  ws2 = "2";
+  ws3 = "3";
+  ws4 = "4";
+  ws5 = "5";
+  ws6 = "6";
+  ws7 = "7";
+  ws8 = "8";
+  ws9 = "9";
+  ws10 = "10";
 in
 {
   xsession = {
@@ -21,10 +21,10 @@ in
       enable = true;
       config = {
         modifier = mod;
-        terminal = "xterm";
+        terminal = "kitty";
 
         fonts = {
-          names = [ "JetBrainsMono Nerd Font" "Symbols Nerd Font Mono" ];
+          names = [ "JetBrainsMono Nerd Font" ];
           size = 10.0;
         };
 
@@ -35,11 +35,11 @@ in
 
         colors = {
           focused = {
-            border = "#d49759";
+            border = "#b08152";
             background = "#0f1218";
             text = "#c8d1dc";
-            indicator = "#d49759";
-            childBorder = "#d49759";
+            indicator = "#b08152";
+            childBorder = "#b08152";
           };
           focusedInactive = {
             border = "#15191f";
@@ -78,7 +78,7 @@ in
           position = "top";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
           fonts = {
-            names = [ "JetBrainsMono Nerd Font" "Symbols Nerd Font Mono" ];
+            names = [ "JetBrainsMono Nerd Font" ];
             size = 11.0;
           };
           colors = {
@@ -86,8 +86,8 @@ in
             statusline = "#c8d1dc";
             separator = "#4a525e";
             focusedWorkspace = {
-              border = "#d49759";
-              background = "#d49759";
+              border = "#b08152";
+              background = "#b08152";
               text = "#08090d";
             };
             activeWorkspace = {
@@ -108,7 +108,7 @@ in
           };
         }];
 
-        keybindings = lib.mkOptionDefault {
+        keybindings = {
           # Focus
           "${mod}+Left" = "focus left";
           "${mod}+Right" = "focus right";
@@ -128,13 +128,14 @@ in
           "${mod}+k" = "resize grow height 20 px";
 
           # Actions
-          "${mod}+Return" = "exec xterm";
+          "${mod}+Return" = "exec ${pkgs.kitty}/bin/kitty";
           "${mod}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
           "${mod}+q" = "kill";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+space" = "floating toggle";
           "${mod}+Shift+e" = "exit";
           "${mod}+Shift+r" = "restart";
+          "${mod}+Shift+x" = "exec --no-startup-id ${pkgs.i3lock}/bin/i3lock -c 0f1218";
 
           # Workspaces
           "${mod}+1" = "workspace ${ws1}";
@@ -171,8 +172,13 @@ in
 
         startup = [
           { command = "${pkgs.feh}/bin/feh --bg-fill /home/oliver/Pictures/artimusii.jpg"; always = true; notification = false; }
+          { command = "${pkgs.autorandr}/bin/autorandr --change"; always = true; notification = false; }
+          { command = "${pkgs.xset}/bin/xset s 600 600"; always = true; notification = false; }
+          { command = "${pkgs.xset}/bin/xset +dpms dpms 660 660 660"; always = true; notification = false; }
+          { command = "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- ${pkgs.i3lock}/bin/i3lock --nofork -c 0f1218"; always = true; notification = false; }
+          { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; always = true; notification = false; }
           { command = "${pkgs.dunst}/bin/dunst"; notification = false; }
-          { command = "xterm"; notification = false; }
+          { command = "${pkgs.kitty}/bin/kitty"; notification = false; }
         ];
       };
       extraConfig = ''
