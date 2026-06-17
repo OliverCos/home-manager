@@ -15,6 +15,7 @@
     ./configs/xterm.nix
     ./configs/neovim.nix
     ./configs/autorandr.nix
+    ./configs/picom.nix
     ./packages
   ];
 
@@ -88,6 +89,7 @@
 
     # Apps
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    guvcview
 
     # Dev
     uv
@@ -132,7 +134,7 @@
           email = "oliver.cosgrove@oriolenetworks.com";
         };
         revset-aliases = {
-          "immutable_heads()" = "builtin_immutable_heads() ~ ((bookmarks() | remote_bookmarks()) & mine())";
+          "immutable_heads()" = "builtin_immutable_heads() | (trunk().. & ~mine())";
         };
       };
     };

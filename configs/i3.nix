@@ -29,35 +29,35 @@ in
         };
 
         gaps = {
-          inner = 0;
-          outer = 0;
+          inner = 10;
+          outer = 6;
         };
 
         colors = {
           focused = {
             border = "#b08152";
-            background = "#0f1218";
-            text = "#c8d1dc";
+            background = "#b08152";
+            text = "#08090d";
             indicator = "#b08152";
             childBorder = "#b08152";
           };
           focusedInactive = {
-            border = "#15191f";
+            border = "#0f1218";
             background = "#0f1218";
             text = "#7e8694";
-            indicator = "#15191f";
-            childBorder = "#15191f";
+            indicator = "#0f1218";
+            childBorder = "#0f1218";
           };
           unfocused = {
-            border = "#15191f";
+            border = "#08090d";
             background = "#08090d";
-            text = "#7e8694";
-            indicator = "#15191f";
-            childBorder = "#15191f";
+            text = "#3a4250";
+            indicator = "#08090d";
+            childBorder = "#08090d";
           };
           urgent = {
             border = "#b85842";
-            background = "#08090d";
+            background = "#b85842";
             text = "#dbe4ec";
             indicator = "#b85842";
             childBorder = "#b85842";
@@ -137,6 +137,7 @@ in
           "${mod}+Shift+r" = "restart";
           "${mod}+Shift+x" = "exec --no-startup-id ${pkgs.i3lock}/bin/i3lock -c 0f1218";
           "${mod}+b" = "exec --no-startup-id ${pkgs.blueman}/bin/blueman-manager";
+          "${mod}+r" = "mode resize";
 
           # Workspaces
           "${mod}+1" = "workspace ${ws1}";
@@ -164,6 +165,35 @@ in
           # Split direction
           "${mod}+h" = "split h";
           "${mod}+v" = "split v";
+
+          # Layout toggle
+          "${mod}+s" = "layout stacking";
+          "${mod}+w" = "layout tabbed";
+          "${mod}+e" = "layout toggle split";
+
+          # Container navigation
+          "${mod}+a" = "focus parent";
+          "${mod}+c" = "focus child";
+
+          # Scratchpad
+          "${mod}+Shift+minus" = "move scratchpad";
+          "${mod}+minus" = "scratchpad show";
+        };
+
+        modes = {
+          resize = {
+            "Left"       = "resize shrink width 10 px or 10 ppt";
+            "Right"      = "resize grow width 10 px or 10 ppt";
+            "Up"         = "resize shrink height 10 px or 10 ppt";
+            "Down"       = "resize grow height 10 px or 10 ppt";
+            "Shift+Left" = "resize shrink width 2 px or 2 ppt";
+            "Shift+Right"= "resize grow width 2 px or 2 ppt";
+            "Shift+Up"   = "resize shrink height 2 px or 2 ppt";
+            "Shift+Down" = "resize grow height 2 px or 2 ppt";
+            "Return"     = "mode default";
+            "Escape"     = "mode default";
+            "${mod}+r"   = "mode default";
+          };
         };
 
         assigns = {
@@ -178,11 +208,12 @@ in
           { command = "${pkgs.xset}/bin/xset +dpms dpms 660 660 660"; always = true; notification = false; }
           { command = "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- ${pkgs.i3lock}/bin/i3lock --nofork -c 0f1218"; always = true; notification = false; }
           { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; always = true; notification = false; }
-          { command = "${pkgs.dunst}/bin/dunst"; notification = false; }
           { command = "${pkgs.kitty}/bin/kitty"; notification = false; }
         ];
       };
       extraConfig = ''
+        for_window [class=".*"] border pixel 1
+        for_window [class=".*"] title_format "  %title  "
         for_window [urgent=latest] focus
       '';
     };

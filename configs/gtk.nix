@@ -11,11 +11,6 @@ in
   gtk = {
     enable = true;
 
-    font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 10;
-    };
-
     theme = {
       name = "Graphite-orange-Dark";
       package = graphiteTheme;

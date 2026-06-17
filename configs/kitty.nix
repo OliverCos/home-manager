@@ -10,7 +10,7 @@
 
       # --- BACKGROUND ---
       background = "#08090d";
-      background_opacity = "0.85";
+      background_opacity = "0.6";
 
       # --- FOREGROUND ---
       foreground = "#c8d1dc";
@@ -30,7 +30,7 @@
       # --- TAB BAR ---
       tab_bar_edge = "top";
       tab_bar_style = "powerline";
-      tab_powerline_style = "slanted";
+      tab_powerline_style = "round";
       active_tab_foreground = "#08090d";
       active_tab_background = "#b08152";
       active_tab_font_style = "bold";

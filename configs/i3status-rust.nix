@@ -34,7 +34,7 @@
           }
           {
             block = "memory";
-            format = "  $mem_total_used_percents ";
+            format = "  $mem_used_percents ";
             interval = 5;
           }
           {
