@@ -3,10 +3,6 @@
 
 {
   imports = [
-    ./configs/i3.nix
-    ./configs/i3status-rust.nix
-    ./configs/rofi.nix
-    ./configs/dunst.nix
     ./configs/kitty.nix
     ./configs/zsh.nix
     ./configs/btop.nix
@@ -14,17 +10,13 @@
     ./configs/gtk.nix
     ./configs/xterm.nix
     ./configs/neovim.nix
-    ./configs/autorandr.nix
-    ./configs/picom.nix
+    ./configs/fpga-desktop.nix
     ./packages
   ];
 
-  nix = {
-    package = pkgs.nix;
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-    };
-  };
+  # This machine is RHEL 9 (non-NixOS) running GNOME. Let home-manager integrate
+  # with the system session (XDG dirs, PATH, etc.).
+  targets.genericLinux.enable = true;
 
   home = {
     username = "oliver";
@@ -37,15 +29,13 @@
     ];
     sessionVariables = {
       ZSH_DISABLE_COMPFIX = "true";
+      MTI_VCO_MODE = "64";
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
       LANG = "en_US.UTF-8";
     };
+    # GNOME owns dconf here; don't let home-manager drive it (no D-Bus over SSH).
     activation.dconfSettings = lib.mkForce (lib.hm.dag.entryAnywhere "");
   };
-
-  home.file.".xprofile".text = ''
-    [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
-  '';
 
   fonts.fontconfig.enable = true;
 
@@ -55,28 +45,11 @@
     fzf
     fastfetch
     github-copilot-cli
-
-    # i3 ecosystem
-    i3
-    i3status-rust
-    rofi
-    dunst
-    feh
     libnotify
+    ripgrep
+    fd
 
-    # Screen lock & display
-    i3lock
-    xss-lock
-    autorandr
-    xset
-
-    # Keyring / secrets
-    libsecret
-    gnome-keyring
-    seahorse
-    polkit_gnome
-
-    # Theming
+    # Theming (GTK apps, icons, cursors, fonts)
     glib
     (graphite-gtk-theme.override {
       colorVariants = [ "dark" ];
@@ -94,12 +67,10 @@
     # Dev
     uv
     verilator
+    verible
+    elan
+    clang-tools # clangd language server (C/C++ IntelliSense in VS Code)
   ];
-
-  services.gnome-keyring = {
-    enable = true;
-    components = [ "pkcs11" "secrets" "ssh" ];
-  };
 
   programs = {
     direnv = {
