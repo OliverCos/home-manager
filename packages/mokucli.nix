@@ -9,11 +9,11 @@
 let
   mokucli-unwrapped = pkgs.stdenvNoCC.mkDerivation {
     pname = "mokucli-unwrapped";
-    version = "4.2.2.1";
+    version = "4.3.0.0";
 
     src = pkgs.fetchurl {
       url = "https://download.liquidinstruments.com/software/mokucli/linux/mokucli-linux.tar.gz";
-      hash = "sha256-FtWyTkTj++gQJVumcoKcwsK3E6qqhP6DCC7hKDE01Kc=";
+      hash = "sha256-FjB+1fFSt8Ua0xeqT1NVNdngOkUrkxSae3g+NXGYeUQ=";
     };
 
     sourceRoot = ".";

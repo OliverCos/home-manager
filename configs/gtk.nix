@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 let
-  graphiteTheme = pkgs.graphite-gtk-theme.override {
-    tweaks = [ "rimless" "darker" ];
+  colloidTheme = pkgs.colloid-gtk-theme.override {
+    tweaks = [ "rimless" "black" ];
     colorVariants = [ "dark" ];
     themeVariants = [ "orange" ];
   };
@@ -12,8 +12,8 @@ in
     enable = true;
 
     theme = {
-      name = "Graphite-orange-Dark";
-      package = graphiteTheme;
+      name = "Colloid-Orange-Dark";
+      package = colloidTheme;
     };
 
     iconTheme = {
@@ -27,6 +27,7 @@ in
   };
 
   home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     x11.enable = true;
     package = pkgs.bibata-cursors;
@@ -35,7 +36,7 @@ in
   };
 
   xdg.dataFile = {
-    "themes/Graphite-orange-Dark".source = "${graphiteTheme}/share/themes/Graphite-orange-Dark";
+    "themes/Colloid-Orange-Dark".source = "${colloidTheme}/share/themes/Colloid-Orange-Dark";
     "icons/Papirus-Dark".source = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
     "icons/Bibata-Modern-Ice".source = "${pkgs.bibata-cursors}/share/icons/Bibata-Modern-Ice";
   };

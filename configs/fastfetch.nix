@@ -69,7 +69,7 @@
         "break"
         {
           type = "colors";
-          symbol = "square";
+          symbol = "circle";
         }
       ];
     };

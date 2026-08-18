@@ -1,5 +1,5 @@
 
-{ inputs, pkgs, lib, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -10,6 +10,7 @@
     ./configs/gtk.nix
     ./configs/xterm.nix
     ./configs/neovim.nix
+    ./configs/tmux.nix
     ./configs/fpga-desktop.nix
     ./packages
   ];
@@ -33,15 +34,15 @@
       LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
       LANG = "en_US.UTF-8";
     };
-    # GNOME owns dconf here; don't let home-manager drive it (no D-Bus over SSH).
-    activation.dconfSettings = lib.mkForce (lib.hm.dag.entryAnywhere "");
   };
+
+  # GNOME owns dconf here; don't let home-manager drive it (no D-Bus over SSH).
+  dconf.enable = false;
 
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
     # Terminal & tools
-    tmux
     fzf
     fastfetch
     github-copilot-cli
@@ -51,9 +52,9 @@
 
     # Theming (GTK apps, icons, cursors, fonts)
     glib
-    (graphite-gtk-theme.override {
+    (colloid-gtk-theme.override {
       colorVariants = [ "dark" ];
-      tweaks = [ "rimless" "darker" ];
+      tweaks = [ "rimless" "black" ];
       themeVariants = [ "orange" ];
     })
     papirus-icon-theme
