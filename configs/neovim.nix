@@ -11,8 +11,6 @@
     withRuby = false;
     withPython3 = false;
 
-    plugins = [ pkgs.vimPlugins.vim-tmux-navigator ];
-
     initLua = ''
       -- Artemis colorscheme
       vim.o.termguicolors = true
@@ -185,13 +183,6 @@
       vim.o.clipboard      = "unnamedplus"
       vim.o.undofile       = true
       vim.o.winborder      = "rounded"
-
-      -- Cross the nvim/tmux boundary with one set of keys
-      vim.g.tmux_navigator_no_mappings = 1
-      vim.keymap.set({ "n", "t" }, "<C-h>", "<Cmd>TmuxNavigateLeft<CR>",  { silent = true })
-      vim.keymap.set({ "n", "t" }, "<C-j>", "<Cmd>TmuxNavigateDown<CR>",  { silent = true })
-      vim.keymap.set({ "n", "t" }, "<C-k>", "<Cmd>TmuxNavigateUp<CR>",    { silent = true })
-      vim.keymap.set({ "n", "t" }, "<C-l>", "<Cmd>TmuxNavigateRight<CR>", { silent = true })
     '';
   };
 }

@@ -17,7 +17,6 @@ in
     plugins = with pkgs.tmuxPlugins; [
       sensible
       yank
-      vim-tmux-navigator
 
       {
         plugin = tmux-floax;
@@ -98,7 +97,6 @@ in
       bind - split-window -v -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
 
-      # vim-tmux-navigator owns C-h/j/k/l; these stay as a prefix-based fallback.
       bind h select-pane -L
       bind j select-pane -D
       bind k select-pane -U
